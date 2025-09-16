@@ -1,6 +1,5 @@
-import CardPizza from "./CardPizza"
-import Header from "./Header"
-// import data from "../data/data"
+import CardPizza from "../Views/CardPizza"
+import Header from "../Views/Header"
 import { useState, useEffect } from "react";
 
 

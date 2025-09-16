@@ -1,4 +1,3 @@
-// import pizzas from '../data/pizzas';
 
 function CardPizza({ name, price, ingredients, img, desc }) {
     return (

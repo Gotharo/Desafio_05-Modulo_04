@@ -1,20 +1,20 @@
-import NavBar from "./Components/NavBar"
+import NavBar from "./Views/NavBar"
+import Footer from "./Views/Footer"
 import Home from "./Components/Home"
-import Footer from "./Components/Footer"
 import Pizza from "./Components/Pizza"
-// import RegisterPage from "./Components/auth/RegisterPage"
-// import LoginPage from "./Components/auth/LoginPage"
 // import Cart from "./Components/Cart"
+import RegisterPage from "./Components/auth/RegisterPage"
+import LoginPage from "./Components/auth/LoginPage"
 
 function App() {
     return (
         <div className="min-h-screen flex flex-col">
             <NavBar />
             <Home />
-            {/* <RegisterPage /> */}
-            {/* <LoginPage /> */}
+            <RegisterPage />
+            <LoginPage />
             {/* <Cart /> */}
-            <Pizza />
+            {/* <Pizza /> */}
             <Footer />
         </div>
     )

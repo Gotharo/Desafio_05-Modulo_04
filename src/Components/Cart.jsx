@@ -1,4 +1,3 @@
-import pizzas from '../data/pizzas';
 import { useState } from 'react';
 
 // Simulación de array inicial del carrito
