@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
+import logo from "../../Assets/Img/Logo_gotharo.png";
 
 function NavBar() {
     let total = 25000;
@@ -23,21 +26,21 @@ function NavBar() {
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex shrink-0 items-center">
-                            <img src="./src/Assets/Img/Logo_gotharo.png" alt="Your Company" className="h-8 w-auto" />
+                            <img src={logo} alt="Your Company" className="h-8 w-auto" />
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <button className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white"> Home </button>
+                                <Link to="/" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white"> Home </Link>
 
                                 {isLoggedIn ? (
                                     <>
-                                        <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔓 Profile</a>
-                                        <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔒 Logout</a>
+                                        <Link to="/profile" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔓 Profile</Link>
+                                        
                                     </>
                                 ) : (
                                     <>
-                                        <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔐 Login</a>
-                                        <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔐 Register</a>
+                                        <Link to="/login" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔐 Login</Link>
+                                        <Link to="/register" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">🔐 Register</Link>
                                     </>
                                 )}
                             </div>
@@ -54,9 +57,9 @@ function NavBar() {
                             className="form-checkbox h-5 w-5 text-yellow-500"
                         />
 
-                        <button className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
-                            Total: {formateado}
-                        </button>
+                        <Link to="/cart" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">
+                            🛒 Total: {formateado}
+                        </Link>
 
                     </div>
                 </div>

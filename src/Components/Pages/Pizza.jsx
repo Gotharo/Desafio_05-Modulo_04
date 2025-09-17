@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function Pizza() {
+    const { pizzaId } = useParams();
     const [pizza, setPizza] = useState(null);
     useEffect(() => {
-        const getPizzaProps = async () => {           
-                const res = await fetch("http://localhost:5000/api/pizzas/p001");
-                const data = await res.json();
-                setPizza(data);         
+        const getPizzaProps = async () => {
+            const res = await fetch(`http://localhost:5000/api/pizzas/${pizzaId}`);
+            const data = await res.json();
+            setPizza(data);
         };
         getPizzaProps();
-    }, []);
+    }, [pizzaId]);
 
    
 
@@ -18,8 +20,8 @@ function Pizza() {
     }
 
     return (
-        <div className="flex items-center">
-            <div className="flex flex-col m-4 h-170 w-160  rounded overflow-hidden shadow-lg bg-white">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="flex flex-col m-4 h-170 w-160 rounded overflow-hidden shadow-lg bg-white">
                 <img className="w-full h-48 object-cover" src={pizza.img} alt={pizza.name} />
                 <div className="px-6 py-4">
                     <h2 className="font-bold text-xl mb-2 text-black">{pizza.name}</h2>
