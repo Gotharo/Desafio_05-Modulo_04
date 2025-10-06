@@ -1,10 +1,30 @@
 
 
-function CardPizza({ name, price, ingredients, img, desc }) {
+import { useCart } from '../../Context/CartContext';
+import { useState, useEffect, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+function CardPizza({ id, name, price, ingredients, img, desc }) {
+    const { cart, addToCart } = useCart();
+    const pizza = { id, name, price, ingredients, img, desc };
+    const localId = useRef(uuidv4());
+    const [added, setAdded] = useState(false);
+
+        useEffect(() => {
+            const exists = cart.some(item => item.cartId === localId.current);
+            setAdded(exists);
+        }, [cart]);
+
+        const handleAdd = () => {
+            if (!added) {
+                addToCart({ ...pizza, cartId: localId.current });
+            }
+        };
+
     return (
         <div className="flex">
             <div className="flex flex-col m-4 rounded overflow-hidden shadow-lg bg-white h-auto min-h-0 justify-between max-w-[420px] w-full" style={{height: 'auto', maxWidth: '420px'}}>
-                <img className="w-full h-48 object-cover" src={img} alt="Pizza Napolitana" />
+                <img className="w-full h-48 object-cover" src={img} alt={name} />
                 <div className="px-6 py-4 flex-1">
                     <h2 className="font-bold text-xl mb-2 text-black">{name}</h2>
                     <p className="mb-4 text-xs">{desc}</p>
@@ -20,13 +40,21 @@ function CardPizza({ name, price, ingredients, img, desc }) {
                     <button className="bg-white text-black hover:bg-blue-600 font-bold py-2 px-4 rounded m-2 border-[2px]">
                         Ver Más 👀
                     </button>
-                    <button className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded m-2">
-                        Añadir 🛒
-                    </button>
+                                <button
+                                    className={
+                                        added
+                                            ? "bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2"
+                                            : "bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded m-2"
+                                    }
+                                    onClick={handleAdd}
+                                    disabled={added}
+                                >
+                                    Añadir 🛒
+                                </button>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default CardPizza

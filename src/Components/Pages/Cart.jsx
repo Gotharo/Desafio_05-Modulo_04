@@ -1,29 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useCart } from '../../Context/CartContext';
 
 function Cart() {
-    const [cart, setCart] = useState([]);
-    useEffect(() => {
-        async function getPizzas() {
-            const res = await fetch("http://localhost:5000/api/pizzas");
-            const data = await res.json();
-            // Inicializa el carrito con una cantidad por defecto (1) para cada pizza
-            setCart(data.map(pizza => ({ ...pizza, quantity: 1 })));
-        }
-        getPizzas();
-    }, []);
-
-    const handleQuantity = (index, delta) => {
-        setCart(cart => {
-            const updated = cart.map((item, i) =>
-                i === index
-                    ? { ...item, quantity: item.quantity + delta }
-                    : item
-            );
-            // Filtra las pizzas cuya cantidad es mayor a 0
-            return updated.filter(item => item.quantity > 0);
-        });
-    };
-
+    const { cart, updateQuantity } = useCart();
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
@@ -33,19 +11,19 @@ function Cart() {
                 {cart.length === 0 ? (
                     <p className="text-gray-500">El carrito está vacío.</p>
                 ) : (
-                    cart.map((item, idx) => (
-                        <div key={item.id} className="flex items-center mb-4">
+                    cart.map((item) => (
+                        <div key={item.cartId} className="flex items-center mb-4">
                             <img src={item.img} alt={item.name} className="w-12 h-12 rounded mr-3" />
                             <span className="flex-1 font-medium">{item.name}</span>
                             <span className="w-24 text-right font-semibold">${item.price.toLocaleString()}</span>
                             <button
                                 className="border-2 border-red-400 text-red-500 px-2 mx-2 rounded"
-                                onClick={() => handleQuantity(idx, -1)}
+                                onClick={() => updateQuantity(item.cartId, -1)}
                             >-</button>
                             <span className="w-6 text-center">{item.quantity}</span>
                             <button
                                 className="border-2 border-blue-400 text-blue-500 px-2 mx-2 rounded"
-                                onClick={() => handleQuantity(idx, 1)}
+                                onClick={() => updateQuantity(item.cartId, 1)}
                             >+</button>
                         </div>
                     ))
